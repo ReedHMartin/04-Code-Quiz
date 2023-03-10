@@ -26,3 +26,45 @@ var questions = [
     },
 
 ];
+
+var homePage = document.getElementById("homePage")
+var questionPage = document.getElementById("questionPage")
+var option1 = document.getElementById("option1")
+var option2 = document.getElementById("option2")
+var option3 = document.getElementById("option3")
+var option4 = document.getElementById("option4")
+var question1 = document.getElementById('question1')
+let index = 0
+
+function startQuiz() {
+   homePage.classList.add('hide')
+   questionPage.classList.remove('hide')
+   displayQuestion()
+   //TO DO start timer
+}
+
+function displayQuestion() {
+    question1.textContent = questions[index].question
+    option1.textContent = questions[index].options[0]
+    option2.textContent = questions[1].options[1]
+    option3.textContent = questions[1].options[2]
+    option4.textContent = questions[1].options[3]
+}
+
+function checkAnswer(e) {
+    console.log(e)
+    if(e.target.matches("button")){
+        console.log("BUTTON CLICKED")
+        console.log(e.target.textContent)
+
+        //check if answer is correct
+
+
+        index++
+        //TO DOis index at the end yet
+        displayQuestion()
+    }
+}
+
+document.getElementById("startQuiz").addEventListener("click", startQuiz)
+document.getElementById('buttons').addEventListener('click', checkAnswer)

@@ -1,0 +1,7 @@
+.hide {
+    display: none;
+}
+
+#buttons {
+    border: 2px solid red;
+}
