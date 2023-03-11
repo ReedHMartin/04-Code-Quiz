@@ -36,7 +36,6 @@ const question1 = document.getElementById('question1');
 let index = 0;
 let timer; // variable to hold the timer ID
 let timeLeft = 30; // variable to hold the time left in seconds
-let score = 0; // Initialize the score variable to 0 before the quiz starts
 
 function startQuiz() {
     homePage.classList.add('hide');
@@ -51,20 +50,16 @@ function startQuiz() {
         timerElement.textContent = timeLeft;
 
         if (timeLeft <= 0) {
-            // Stop the timer and save the score if time runs out
+            // Stop the timer and show the score if time runs out
             clearInterval(timer);
-            const score = timeLeft;
-            localStorage.setItem('score', score); // Save the score to localStorage
-            window.location.href = 'high_scores.html'; // Redirect to high scores page
-        }
-        
-        else {
+            questionPage.classList.add('hide');
+            // TODO show scores after finishing quiz
+        } else {
             // Decrement the time left by 1 second
             timeLeft--;
         }
     }, 1000);
 }
-
 
 
 function displayQuestion() {
@@ -81,7 +76,7 @@ function checkAnswer(e) {
         const correctAnswer = questions[index].answer;
 
         if (selectedAnswer === correctAnswer) {
-            score++; // Increment the score if the answer is correct
+            // TODO increment score or perform other actions for correct answer
             index++;
             if (index < questions.length) {
                 displayQuestion();
@@ -90,12 +85,7 @@ function checkAnswer(e) {
                 clearInterval(timer);
 
                 questionPage.classList.add('hide');
-                
-                if (timeLeft > 0) {
-                    score = timeLeft; // Save the remaining time as the score
-                }
-                localStorage.setItem('score', score); // Save the updated score to localStorage
-                window.location.href = 'high_scores.html'; // Redirect to high scores page
+                // TODO show scores after finishing quiz
             }
             document.getElementById('result').textContent = ''; // Clear the result text
         } else {
@@ -104,7 +94,6 @@ function checkAnswer(e) {
         }
     }
 }
-
 
 
 
