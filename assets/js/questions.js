@@ -69,8 +69,8 @@ const questions = [
       if (timeLeft <= 0) {
         clearInterval(timer); // Stop the timer interval
         const newScore = timeLeft;
-        scores.push(newScore); // Add the new score to the scores array
-        localStorage.setItem("scores", JSON.stringify(scores)); // Save the updated scores to local storage
+        highScores.push(newScore); // Add the new score to the scores array
+        localStorage.setItem("highScores", JSON.stringify(highScores)); // Save the updated scores to local storage
         window.location.href = "high_scores.html"; // Redirect to the high scores page
       } else {
         timeLeft--; // Decrement the time left by 1 second
@@ -113,7 +113,7 @@ const questions = [
   
           // Add the score to the scores array and save it to local storage
           scores.push(score);
-          localStorage.setItem("scores", JSON.stringify(scores));
+          localStorage.setItem("highScores", JSON.stringify(scores));
           window.location.href = "high_scores.html";
         }
   
