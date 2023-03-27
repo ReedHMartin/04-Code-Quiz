@@ -67,18 +67,19 @@ const questions = [
     timer = setInterval(() => {
       timerElement.textContent = timeLeft; // Display the remaining time on the timer element
   
-      // End the quiz if time runs out
-      if (timeLeft <= 0) {
-        clearInterval(timer); // Stop the timer interval
-        const newScore = timeLeft;
-        highScores.push(newScore); // Add the new score to the scores array
-        localStorage.setItem("highScores", JSON.stringify(highScores)); // Save the updated scores to local storage
-        window.location.href = "high_scores.html"; // Redirect to the high scores page
-      } else {
-        timeLeft--; // Decrement the time left by 1 second
-      }
-    }, 1000);
-  }
+    // End the quiz if time runs out
+    if (timeLeft <= 0) {
+      clearInterval(timer); // Stop the timer interval
+      questionPage.classList.add("hide"); // Hide the question page element
+
+      // Show an alert and redirect to the home page
+      alert("Time's up! No score recorded.");
+      window.location.href = "high_scores.html"; // Redirect to the high scores
+    } else {
+      timeLeft--; // Decrement the time left by 1 second
+    }
+  }, 1000);
+}
   
   // Define function to display the current question and options
   function displayQuestion() {
