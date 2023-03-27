@@ -20,7 +20,8 @@ window.addEventListener('DOMContentLoaded', () => {
   // Add click event listener to clear scores button
   clearScoresButton.addEventListener('click', clearScores);
 
-  // Clear high scores from local storage when clear button is clicked
+  // Defines the function to clear high scores from local storage and update the high scores list
+
   function clearScores() {
     localStorage.removeItem('highScores');
     highScoresList.innerHTML = '';

@@ -89,6 +89,8 @@ const questions = [
     option3.textContent = questions[index].options[2];
     option4.textContent = questions[index].options[3];
   }
+
+  // Defines the function to check the user's selected answer and update the quiz state accordingly
   function checkAnswer(e) {
     // Check if the clicked element is a button
     if (e.target.matches("button")) {
@@ -139,6 +141,7 @@ const questions = [
     }
   }
 
+// Defines the function to save the user's score to the high scores list in local storage
   function saveScore(newScore) {
     // Get the high scores from local storage or create an empty array if none exist
     const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
@@ -150,6 +153,7 @@ const questions = [
     localStorage.setItem("highScores", JSON.stringify(highScores));
   }
   
+  // Adds an event listener to save the user's score when the window unloads if their initials are stored in local storage
   window.addEventListener("unload", function () {
     const initials = localStorage.getItem("initials");
     if (initials) {
