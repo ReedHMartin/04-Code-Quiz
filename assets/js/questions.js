@@ -43,14 +43,16 @@ const questions = [
   const option3 = document.getElementById("option3");
   const option4 = document.getElementById("option4");
   const question1 = document.getElementById("question1");
+  const buttonsElement = document.getElementById("buttons");
+
   
   // Define variables for quiz state, including the index of the current question, the timer, time left, and score
   let index = 0;
   let timer;
   let timeLeft = 30;
   let score = 0;
-  let scores = JSON.parse(localStorage.getItem("scores")) || []; // Parse existing scores or initialize an empty array
-  
+  let scoreSaved = false;
+ 
   // Define function to start the quiz
   function startQuiz() {
     homePage.classList.add("hide"); // Hide the home page element
@@ -97,35 +99,66 @@ const questions = [
       if (selectedAnswer === correctAnswer) {
         score++;
         index++;
-  
-        // If there are more questions to display, show the next question
-        if (index < questions.length) {
-          displayQuestion();
-        } else {
-          // If there are no more questions, stop the timer and go to the high scores page
-          clearInterval(timer);
-          questionPage.classList.add("hide");
-  
-          // If there is still time left, use it as the score
-          if (timeLeft > 0) {
-            score = timeLeft;
-          }
-  
-          // Add the score to the scores array and save it to local storage
-          scores.push(score);
-          localStorage.setItem("highScores", JSON.stringify(scores));
-          window.location.href = "high_scores.html";
-        }
-  
-        // Clear the result text content
-        document.getElementById("result").textContent = "";
       } else {
         // If the selected answer is incorrect, subtract 5 seconds from the timer and show the "Incorrect" result message
         document.getElementById("result").textContent = "Incorrect";
         timeLeft -= 5;
       }
+  
+      // If there are no more questions, stop the timer and go to the high scores page
+      if (index >= questions.length) {
+        clearInterval(timer);
+        questionPage.classList.add("hide");
+  
+        // If there is still time left, use it as the score
+        if (timeLeft > 0) {
+          score = timeLeft;
+        }
+
+                // Prompt the user for their initials
+                const initials = prompt("Please enter your initials:");
+  
+
+            // Call the saveScore function here and pass the score
+    saveScore({ initials: initials, score: score });
+
+    window.location.href = "high_scores.html";
+
+
+
+  
+
+
+
+
+      } else {
+        // Display the next question
+        displayQuestion();
+      }
     }
   }
+
+  function saveScore(newScore) {
+    // Get the high scores from local storage or create an empty array if none exist
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+  
+    // Add the new score to the high scores array
+    highScores.push(newScore);
+  
+    // Save the updated high scores array to local storage
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+  }
+  
+  window.addEventListener("unload", function () {
+    const initials = localStorage.getItem("initials");
+    if (initials) {
+      saveScore({ initials: initials, score: score });
+      localStorage.removeItem("initials");
+    }
+  });
+  
+  
+  
   
   // Add event listeners for the "Start Quiz" and answer buttons
   document.getElementById("startQuiz").addEventListener("click", startQuiz);
